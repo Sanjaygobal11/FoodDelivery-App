@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Food Delivery App</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<script>
+function toggleMenu(){
+    var menu = document.getElementById("mobileMenu");
+
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
+
+function toggleCategory(){
+    var cat = document.getElementById("mobileCategory");
+
+    cat.style.display = (cat.style.display === "block") ? "none" : "block";
+}
+</script>
+
+<body>
+
+<!-- HEADER (same as yours) -->
+<header>
+
+    <div class="logo">
+        🍔 Foodie Express
+    </div>
+
+    <div class="search">
+        <form method="GET">
+            <input type="text" name="q" placeholder="Search foods..." value="{{ request.GET.q }}">
+        </form>
+    </div>
+
+    <div class="desktop-buttons">
+        <a href="{% url 'cart' %}" class="cart-btn">🛒 My Cart</a>
+        <a href="{% url 'order_history' %}" class="orders-btn">📦 My Orders</a>
+    </div>
+
+    <div class="login">
+        {% if user.is_authenticated %}
+            <span>Welcome, {{ user.username }}</span>
+            <a href="{% url 'logout' %}"><button>Logout</button></a>
+        {% else %}
+            <a href="{% url 'login' %}"><button>Login</button></a>
+        {% endif %}
+    </div>
+
+    <button class="menu-icon" onclick="toggleMenu()">☰</button>
+
+</header>
+
+<!-- CATEGORY (same) -->
+<nav class="category-nav">
+    <ul>
+        <li><a href="{% url 'home' %}">All Foods</a></li>
+        <li><a href="/category/Fast Food/">🍕 Fast Food</a></li>
+        <li><a href="/category/South Indian/">🍛 South Indian</a></li>
+        <li><a href="/category/Chinese/">🍜 Chinese</a></li>
+        <li><a href="/category/Non-Veg/">🍗 Non-Veg</a></li>
+        <li><a href="/category/Veg/">🥗 Veg</a></li>
+        <li><a href="/category/Desserts/">🍰 Desserts</a></li>
+        <li><a href="/category/Drinks/">🥤 Drinks</a></li>
+    </ul>
+</nav>
+
+<!-- MOBILE MENU -->
+<nav id="mobileMenu">
+
+    <div class="mobile-section">
+        {% if user.is_authenticated %}
+            <a href="{% url 'cart' %}">🛒 My Cart</a>
+            <a href="{% url 'order_history' %}">📦 My Orders</a>
+            <a href="{% url 'logout' %}">🚪 Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">🔑 Login</a>
+        {% endif %}
+    </div>
+
+    <button class="category-btn" onclick="toggleCategory()">🍽 Categories</button>
+
+    <ul id="mobileCategory">
+        <li><a href="{% url 'home' %}">All Foods</a></li>
+        <li><a href="/category/Fast Food/">🍕 Fast Food</a></li>
+        <li><a href="/category/South Indian/">🍛 South Indian</a></li>
+        <li><a href="/category/Chinese/">🍜 Chinese</a></li>
+        <li><a href="/category/Non-Veg/">🍗 Non-Veg</a></li>
+        <li><a href="/category/Veg/">🥗 Veg</a></li>
+        <li><a href="/category/Desserts/">🍰 Desserts</a></li>
+        <li><a href="/category/Drinks/">🥤 Drinks</a></li>
+    </ul>
+
+</nav>
+
+<!-- 🔥 API LOADED FOOD CONTAINER -->
+<div class="container"></div>
+
+<!-- FOOTER (same) -->
+<footer>
+    <div class="footer-content">
+
+        <h3>🍔 Foodie Express</h3>
+
+        <p>Delicious food delivered to your doorstep.</p>
+
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'order_history' %}">My Orders</a>
+            <a href="/admin/">Admin</a>
+        </div>
+
+        <p class="copyright">
+            © 2026 Foodie Express | Made by Sri ❤️
+        </p>
+
+    </div>
+</footer>
+
+<!-- 🚀 FETCH API SCRIPT -->
+<script>
+fetch('/api/foods/')
+.then(res => res.json())
+.then(data => {
+
+    let container = document.querySelector(".container");
+    container.innerHTML = "";
+
+    data.forEach(food => {
+
+        container.innerHTML += `
+            <div class="card">
+
+                <img src="${food.image}" alt="${food.name}">
+
+                <h2>${food.name}</h2>
+
+                <p>₹${food.price}</p>
+
+                <a href="/add-to-cart/${food.id}/">
+                    <button>Add to Cart</button>
+                </a>
+
+                <a href="/order/${food.id}/">
+                    <button>Order Now</button>
+                </a>
+
+            </div>
+        `;
+    });
+
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order History</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<h1 class="cart-title">📦 My Orders</h1>
+<p class="order-subtitle">
+    Welcome {{ request.user.username }}, here are your previous orders.
+</p>
+
+<div class="cart-container">
+
+{% for order in orders %}
+<div class="order-card">
+
+<img src="{{ order.food.image.url }}" class="order-img">
+    <div class="cart-details">
+        <h2>{{ order.food.name }}</h2>
+        <p>Quantity : {{ order.quantity }}</p>
+        <p>Total : ₹{{ order.total_price }}</p>
+        <p>Payment : {{ order.payment_method }}</p>
+        <p>Address : {{ order.address }}</p>
+    </div>
+
+</div>
+{% empty %}
+<h2 style="text-align:center;">
+    No orders yet 😔
+</h2>
+{% endfor %}
+
+</div>
+
+</body>
+</html>

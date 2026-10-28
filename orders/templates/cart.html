@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+</head>
+<body>
+
+<h1>🛒 My Cart</h1>
+
+<div class="cart-container">
+    {% for item in items %}
+    <div class="cart-card">
+        <img src="{{ item.food.image.url }}">
+        <div class="cart-details">
+            <h2>{{ item.food.name }}</h2>
+            <p>Price : ₹{{ item.food.price }}</p>
+            <p>Quantity : {{ item.quantity }}</p>
+            <h3>
+                Total : ₹{{ item.food.price|floatformat:2 }}
+            </h3>
+        </div>
+    </div>
+    {% empty %}
+        <h2>Your cart is empty 😔</h2>
+    {% endfor %}
+</div>
+<div class="checkout-container">
+    <a href="{% url 'checkout' %}">
+        <button class="checkout-btn">
+            Proceed to Checkout
+        </button>
+    </a>
+</div>
+</body>
+</html>

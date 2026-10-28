@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About Us</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<div class="about-box">
+    <h1>🍔 About Foodie Express</h1>
+
+    <p>
+        Foodie Express is an online food delivery application
+        developed using Django and Python.
+    </p>
+
+    <p>
+        Users can browse foods, add items to cart,
+        place orders and view order history.
+    </p>
+
+    <h3>✨ Features</h3>
+
+    <ul>
+        <li>🍕 Food Categories</li>
+        <li>🛒 Cart System</li>
+        <li>📦 Order History</li>
+        <li>💳 Checkout & Payment</li>
+        <li>📱 Responsive Design</li>
+    </ul>
+
+    <h3>👨‍💻 Developer</h3>
+
+    <p>
+        Made by Sri ❤️
+    </p>
+
+    <a href="{% url 'home' %}" class="cart-btn">
+        Back Home
+    </a>
+</div>
+
+</body>
+</html>

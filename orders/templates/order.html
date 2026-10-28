@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Place Order</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+<header>
+    <div class="logo">
+        🍔 Foodie Express
+    </div>
+
+    <div class="search">
+        <input type="text" placeholder="Search foods...">
+    </div>
+
+    <div class="login">
+        <button>Login</button>
+    </div>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#">All Foods</a></li>
+        <li><a href="#">Veg</a></li>
+        <li><a href="#">Non-Veg</a></li>
+        <li><a href="#">Meals</a></li>
+    </ul>
+</nav>
+<h2>{{ food.name }}</h2>
+<p>Price: ₹{{ food.price }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text"
+           name="customer_name"
+           placeholder="Enter Name"
+           required>
+
+    <input type="number"
+           name="quantity"
+           value="1"
+           min="1">
+
+    <button type="submit">
+        Confirm Order
+    </button>
+</form>
+
+</body>
+</html>

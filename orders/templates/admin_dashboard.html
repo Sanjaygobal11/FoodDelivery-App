@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<h1>📊 Admin Dashboard</h1>
+
+<div class="dashboard">
+
+    <div class="dash-card">
+        <h2>{{ total_users }}</h2>
+        <p>Users</p>
+    </div>
+
+    <div class="dash-card">
+        <h2>{{ total_orders }}</h2>
+        <p>Orders</p>
+    </div>
+
+    <div class="dash-card">
+        <h2>{{ total_foods }}</h2>
+        <p>Foods</p>
+    </div>
+
+    <div class="dash-card">
+        <h2>₹{{ revenue }}</h2>
+        <p>Total Revenue</p>
+    </div>
+
+</div>
+
+</body>
+</html>

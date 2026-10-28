@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Food Delivery App</title>
+
+<link rel="stylesheet" href="{% static 'style.css' %}"></head>
+<body>
+<header>
+    <div class="logo">
+        🍔 Foodie Express
+    </div>
+
+    <div class="search">
+        <input type="text" placeholder="Search foods...">
+    </div>
+<div>
+    <a href="{% url 'cart' %}" class="cart-btn">
+    🛒 My Cart
+</a>
+</div>
+  <div class="login">
+    
+    {% if user.is_authenticated %}
+        <span>Welcome, {{ user.username }}</span>
+
+        <a href="{% url 'logout' %}">
+            <button>Logout</button>
+        </a>
+    {% else %}
+        <a href="{% url 'login' %}">
+            <button>Login</button>
+        </a>
+    {% endif %}
+</div>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="{% url 'home' %}">All Foods</a></li>
+        <li><a href="/category/Fast Food/">🍕 Fast Food</a></li>
+        <li><a href="/category/South Indian/">🍛 South Indian</a></li>
+        <li><a href="/category/Chinese/">🍜 Chinese</a></li>
+        <li><a href="/category/Non-Veg/">🍗 Non-Veg</a></li>
+        <li><a href="/category/Veg/">🥗 Veg</a></li>
+        <li><a href="/category/Desserts/">🍰 Desserts</a></li>
+        <li><a href="/category/Drinks/">🥤 Drinks</a></li>
+    </ul>
+</nav>
+<h1>Category</h1>
+
+
+<div class="container">
+    {% for food in foods %}
+    <div class="card">
+        <img src="{{ food.image.url }}" alt="{{ food.name }}">
+        <h2>{{ food.name }}</h2>
+        <p>₹{{ food.price }}</p>
+<a href="{% url 'add_to_cart' food.id %}">
+    <button>Add to Cart</button>
+</a>
+        <a href="{% url 'order_food' food.id %}">
+            <button>Order Now</button>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+
+</body>
+</html>
